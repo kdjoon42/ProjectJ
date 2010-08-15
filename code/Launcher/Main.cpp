@@ -8,7 +8,7 @@
 //////////////////////////////////////////////////////////////////////////// 
 
 #include <Windows.h>
-#include <Common//IGame.h>
+#include <Common/IGame.h>
 #include <string>
 
 #ifdef _DEBUG
