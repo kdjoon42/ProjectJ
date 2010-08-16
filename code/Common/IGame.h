@@ -17,6 +17,10 @@ namespace Common{
 		{
 		public:
 
+			virtual void Init(HWND hWnd = 0) = 0;
+
+			virtual void Release() = 0;
+
 		};
 
 }//Common

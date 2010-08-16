@@ -18,10 +18,11 @@
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory="$(SolutionDir)$(ConfigurationName)"
-			IntermediateDirectory="$(ConfigurationName)"
+			OutputDirectory="..\..\bin"
+			IntermediateDirectory="..\..\obj\$(ConfigurationName)"
 			ConfigurationType="1"
-			CharacterSet="1"
+			InheritedPropertySheets="..\ExternPath.vsprops"
+			CharacterSet="2"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
@@ -41,7 +42,8 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS"
+				AdditionalIncludeDirectories=".;..;../../external/wxWidgets2.8/include;../../external/wxWidgets2.8/include/msvc"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;__WINDOWS__;__WXMSW__;__WXDEBUG__;WXDEBUG=1;__WIN95__;__WIN32__;WINVER=0x0400;STRICT"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -60,7 +62,10 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
+				AdditionalDependencies="comctl32.lib rpcrt4.lib wsock32.lib winmm.lib wxmsw28d_core.lib wxbase28d.lib gdiplus.lib"
+				OutputFile="$(OutDir)\$(ProjectName)d.exe"
 				LinkIncremental="2"
+				AdditionalLibraryDirectories="..\..\external\wxWidgets2.8\lib\vc_lib"
 				GenerateDebugInformation="true"
 				SubSystem="2"
 				TargetMachine="1"
@@ -114,7 +119,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
-				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;,__WINDOWS__,__WXMSW__,__WIN95__,"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
 				UsePrecompiledHeader="0"
@@ -165,6 +170,50 @@
 	<References>
 	</References>
 	<Files>
+		<Filter
+			Name="Core"
+			>
+			<File
+				RelativePath=".\Editor.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\IEditor.h"
+				>
+			</File>
+		</Filter>
+		<File
+			RelativePath=".\EdApp.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\EdApp.h"
+			>
+		</File>
+		<File
+			RelativePath=".\EdFrame.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\EdFrame.h"
+			>
+		</File>
+		<File
+			RelativePath=".\EdGUI.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\EdGUI.h"
+			>
+		</File>
+		<File
+			RelativePath=".\EdViewPanel.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\EdViewPanel.h"
+			>
+		</File>
 	</Files>
 	<Globals>
 	</Globals>

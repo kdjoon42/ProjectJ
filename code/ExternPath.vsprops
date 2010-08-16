@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="ks_c_5601-1987"?>
+<VisualStudioPropertySheet
+	ProjectType="Visual C++"
+	Version="8.00"
+	Name="ExternPath"
+	>
+	<Tool
+		Name="VCCLCompilerTool"
+		AdditionalIncludeDirectories="&quot;$(BOOST_HOME)&quot;;&quot;$(OGRE_HOME)/OgreMain/Include&quot;;&quot;$(OGRE_HOME)/Include&quot;"
+	/>
+	<Tool
+		Name="VCLinkerTool"
+		AdditionalDependencies="OgreMain_d.lib"
+		AdditionalLibraryDirectories="&quot;$(OGRE_HOME)/lib/$(ConfigurationName)&quot;"
+	/>
+	<UserMacro
+		Name="OGRE_HOME"
+		Value="../../external/ogre_src_v1-7-1"
+	/>
+	<UserMacro
+		Name="BOOST_HOME"
+		Value="../../external/boost_1_43_0"
+		PerformEnvironmentSet="true"
+	/>
+</VisualStudioPropertySheet>

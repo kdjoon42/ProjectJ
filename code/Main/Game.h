@@ -11,6 +11,8 @@
 
 #include <Common/IGame.h>
 
+namespace Ogre{ class Root; }
+
 namespace Main{
 
 		//-----------------------------------------------------------------------------
@@ -18,9 +20,20 @@ namespace Main{
 		class Game : public Common::IGame
 		{
 		public:
-				//-----------------------------------------------------------------------------
-				//!
-				static Common::IGame* Create();
+			//-----------------------------------------------------------------------------
+			//!
+			static Common::IGame* Create();
+
+			Game();
+
+			void Init(HWND hWnd = 0);
+
+			void Release();
+
+		protected:
+			
+			Ogre::Root* m_pRoot;
+
 		};
 }
 
