@@ -1,20 +1,47 @@
-
+////////////////////////////////////////////////////////////////////////////
+//
+//  Copyright (C) Justin 2010-.
+// -------------------------------------------------------------------------
+//  File name: IEditor.h
+//  Created:   17-08-2010 by Dongjoon Kim
+//
+//////////////////////////////////////////////////////////////////////////// 
 
 #pragma once
 
-#include <Windows.h>
+#include <boost/scoped_ptr.hpp>
+
+namespace Main{ class IGame; }
 
 namespace Ed{
 
-	class IEditor
-	{
-	public:
+		//-----------------------------------------------------------------------------
+		//!
+		class IEditor
+		{
+		public:
+				//-----------------------------------------------------------------------------
+				//!
+				static IEditor& Instance();
 
-		static IEditor* Create();
+				//-----------------------------------------------------------------------------
+				//!
+				virtual void Initialize(Main::IGame* pGame) = 0;
+				
+				//-----------------------------------------------------------------------------
+				//!
+				virtual void Shutdown() = 0;
 
-		virtual ~IEditor(){}
+				//-----------------------------------------------------------------------------
+				//!
+				virtual Main::IGame* GetGame() = 0;
 
-		virtual bool Init(HWND hWnd) = 0;
-	};
+				//-----------------------------------------------------------------------------
+				//!
+				virtual void Update() = 0;
+
+		protected:
+				static boost::scoped_ptr<IEditor> m_pInstance;
+		};
 
 }//Ed

@@ -3,92 +3,93 @@
 #include <IEditor.h>
 
 #include <Windows.h>
-#include <Common/IGame.h>
 #include <string>
 
-#ifdef _DEBUG
-#define GAMEDLL "maind.dll"
-#else
-#define 
-#define GAMEDLL "main.dll"
-#endif
-
-typedef Common::IGame *(*CreateFunction)();
+#include <Common/IGame.h>
 
 namespace Ed{
-	
-	class Editor : public IEditor
-	{
-	public:
-		Editor();
-
-		virtual ~Editor();
-
-		bool Init(HWND hWnd);
-
-	protected:
-		HANDLE m_hGameDll;
-		Common::IGame* m_pGame;
-
-	};
-
-
-	IEditor* IEditor::Create()
-	{
-		return new Editor();
-	}
-
-	Editor::Editor()
-		:m_hGameDll(0),m_pGame(0)
-	{
-	}
-
-	Editor::~Editor()
-	{
-		if(m_pGame)
-		{
-			m_pGame->Release();
-			m_pGame = 0;
-		}
-
-		::FreeLibrary((HMODULE)m_hGameDll);
-	}
-
-	bool Editor::Init(HWND hWnd)
-	{
-		m_hGameDll = ::LoadLibrary(GAMEDLL);
-		if(!m_hGameDll)
-		{
-				MessageBox(0,"Fail to load game dll!", "Error", MB_OK | MB_DEFAULT_DESKTOP_ONLY);
-				return false;
-		}
 
 		//-----------------------------------------------------------------------------
 		//!
-		CreateFunction CreateGame = (CreateFunction)::GetProcAddress((HMODULE)(m_hGameDll), "CreateGame");
-
-		if(!CreateGame)
+		class Editor : public IEditor
 		{
-				MessageBox(0,"Fail to get create function!", "Error", MB_OK | MB_DEFAULT_DESKTOP_ONLY);
-				::FreeLibrary((HMODULE)m_hGameDll);
-				return false;
-		}
+		public:
+				//-----------------------------------------------------------------------------
+				//!
+				Editor();
+
+				//-----------------------------------------------------------------------------
+				//!
+				virtual ~Editor();
+
+				//-----------------------------------------------------------------------------
+				//!
+				void Initialize(Main::IGame* pGame);
+
+				//-----------------------------------------------------------------------------
+				//!
+				void Shutdown();
+
+				//-----------------------------------------------------------------------------
+				//!
+				Main::IGame* GetGame() { return &Main::IGame::Instance(); }
+
+				//-----------------------------------------------------------------------------
+				//!
+				void Update();
+
+		protected:
+
+				Main::IGame* m_pGame;
+		};
 
 		//-----------------------------------------------------------------------------
 		//!
-		m_pGame = CreateGame();
+		boost::scoped_ptr<IEditor> IEditor::m_pInstance;
 
-		if(!m_pGame)
+		//-----------------------------------------------------------------------------
+		IEditor& IEditor::Instance()
 		{
-				MessageBox(0,"Fail to Create game!", "Error", MB_OK | MB_DEFAULT_DESKTOP_ONLY);
-				::FreeLibrary((HMODULE)m_hGameDll);
-				return false;
+				if(!m_pInstance)
+				{
+						m_pInstance.reset(new Editor());
+				}
+
+				return *m_pInstance;
 		}
 
-		m_pGame->Init(hWnd);
+		//-----------------------------------------------------------------------------
+		Editor::Editor()
+				:m_pGame(0)
+		{
+		}
 
-		return true;
-	}
+		//-----------------------------------------------------------------------------
+		Editor::~Editor()
+		{
+
+		}
+
+		//-----------------------------------------------------------------------------
+		void Editor::Initialize(Main::IGame* pGame)
+		{
+				m_pGame = pGame;
+		}
+
+		//-----------------------------------------------------------------------------
+		void Editor::Shutdown()
+		{
+				m_pInstance.reset();
+
+				Main::IGame::Instance().Shutdown();
+		}
+
+		//-----------------------------------------------------------------------------
+		void Editor::Update()
+		{
+				if(m_pGame)
+						m_pGame->Update();
+		}
 
 }//Ed
 

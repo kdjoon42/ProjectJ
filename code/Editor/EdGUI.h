@@ -48,6 +48,7 @@ class Frame : public wxFrame
 		wxToolBar* m_toolBar;
 		
 		// Virtual event handlers, overide them in your derived class
+		virtual void OnClose( wxCloseEvent& event ) { event.Skip(); }
 		virtual void OnIdle( wxIdleEvent& event ) { event.Skip(); }
 		
 	

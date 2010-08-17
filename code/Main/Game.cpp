@@ -8,36 +8,95 @@
 //////////////////////////////////////////////////////////////////////////// 
 
 #include <Windows.h>
-#include <new>
+#include <boost/scoped_ptr.hpp>
+
 
 #include <Main/Game.h>
-
-#include <OgreRoot.h>
+#include <Main/IEngine.h>
 
 namespace Main{
 
 		//-----------------------------------------------------------------------------
-		Common::IGame* Game::Create()
+		//!
+		class Game : public IGame
 		{
-				static char buff[sizeof(Game)];
-				return new (buff) Game;
+		public:
+				//-----------------------------------------------------------------------------
+				//!
+				Game();
+
+				//-----------------------------------------------------------------------------
+				//!
+				~Game();
+
+				//-----------------------------------------------------------------------------
+				//!
+				bool Initialize(const GameConfig& config);
+
+				//-----------------------------------------------------------------------------
+				//!
+				void Shutdown();
+
+				//-----------------------------------------------------------------------------
+				//!
+				bool Update();
+
+		protected:
+				bool m_bQuit;
+
+				boost::scoped_ptr<IEngine> m_pEngine;
+		};
+
+		//////////////////////////////////////////////////////////////////////////
+		//
+
+		//-----------------------------------------------------------------------------
+		boost::scoped_ptr<IGame> IGame::m_pInstance;
+
+		//-----------------------------------------------------------------------------
+		IGame& IGame::Instance()
+		{
+				if(!m_pInstance)
+				{
+						m_pInstance.reset(new Game());
+				}
+
+				return *m_pInstance;
 		}
 
+		//-----------------------------------------------------------------------------
 		Game::Game()
-			:m_pRoot(0){}
-
-		void Game::Init(HWND hWnd)
+				:m_bQuit(true)
 		{
-			m_pRoot = new Ogre::Root;
+
 		}
 
-		void Game::Release()
+		//-----------------------------------------------------------------------------
+		Game::~Game()
 		{
-			if(m_pRoot)
-			{
-				delete m_pRoot;
-				m_pRoot = 0;
-			}
+
+		}
+
+
+		//-----------------------------------------------------------------------------
+		bool Game::Initialize(const GameConfig& config)
+		{
+				m_pEngine.reset(IEngine::Create(config));
+
+				return true;
+		}
+
+		//-----------------------------------------------------------------------------
+		void Game::Shutdown()
+		{
+
+				m_pInstance.reset();
+		}
+
+		//-----------------------------------------------------------------------------
+		bool Game::Update()
+		{
+				return m_bQuit ? false : true;
 		}
 
 }//Main

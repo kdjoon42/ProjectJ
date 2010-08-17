@@ -9,8 +9,12 @@
 		AdditionalIncludeDirectories="&quot;$(BOOST_HOME)&quot;;&quot;$(OGRE_HOME)/OgreMain/Include&quot;;&quot;$(OGRE_HOME)/Include&quot;"
 	/>
 	<Tool
-		Name="VCLinkerTool"
+		Name="VCLibrarianTool"
 		AdditionalDependencies="OgreMain_d.lib"
+		AdditionalLibraryDirectories="&quot;$(OGRE_HOME)/lib/$(ConfigurationName)&quot;"
+	/>
+	<Tool
+		Name="VCLinkerTool"
 		AdditionalLibraryDirectories="&quot;$(OGRE_HOME)/lib/$(ConfigurationName)&quot;"
 	/>
 	<UserMacro

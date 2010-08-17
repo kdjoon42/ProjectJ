@@ -14,13 +14,11 @@ EdApp::~EdApp()
 
 bool EdApp::OnInit()
 {
-	EdFrame *frame = new EdFrame(NULL);
+		EdFrame *frame = new EdFrame(NULL);
     frame->Show(true);
     SetTopWindow(frame);
+		
+		frame->Init();
 
-	m_pEditor.reset(Ed::IEditor::Create());
-
-	frame->Init(m_pEditor.get());
-
-    return true;
+	  return true;
 }

@@ -20,8 +20,9 @@ class EdFrame : public Frame
 		EdFrame( wxWindow* parent );
 	//// end generated class members
 
-		void Init(Ed::IEditor* pEditor);
-	
+		void Init();
+		void OnClose( wxCloseEvent& event );
+		void OnIdle( wxIdleEvent& event );
 };
 
 #endif // __EdFrame__

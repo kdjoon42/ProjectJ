@@ -68,12 +68,14 @@ Frame::Frame( wxWindow* parent, wxWindowID id, const wxString& title, const wxPo
 	this->Centre( wxBOTH );
 	
 	// Connect Events
+	this->Connect( wxEVT_CLOSE_WINDOW, wxCloseEventHandler( Frame::OnClose ) );
 	this->Connect( wxEVT_IDLE, wxIdleEventHandler( Frame::OnIdle ) );
 }
 
 Frame::~Frame()
 {
 	// Disconnect Events
+	this->Disconnect( wxEVT_CLOSE_WINDOW, wxCloseEventHandler( Frame::OnClose ) );
 	this->Disconnect( wxEVT_IDLE, wxIdleEventHandler( Frame::OnIdle ) );
 	
 }

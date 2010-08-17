@@ -9,18 +9,48 @@
 
 #pragma once
 
-namespace Common{
+#include <Windows.h>
+#include <boost/scoped_ptr.hpp>
+
+namespace Main{
+
+		//-----------------------------------------------------------------------------
+		//!
+		struct GameConfig
+		{
+				GameConfig():hWnd(0){}
+
+				HWND hWnd;
+		};
 
 		//-----------------------------------------------------------------------------
 		//!
 		class IGame
 		{
 		public:
+				//-----------------------------------------------------------------------------
+				//!
+				static IGame& Instance();
 
-			virtual void Init(HWND hWnd = 0) = 0;
+				//-----------------------------------------------------------------------------
+				//!
+				virtual ~IGame(){}
 
-			virtual void Release() = 0;
+				//-----------------------------------------------------------------------------
+				//!
+				virtual bool Initialize(const GameConfig& config) = 0;
 
+				//-----------------------------------------------------------------------------
+				//!
+				virtual void Shutdown() = 0;
+
+				//-----------------------------------------------------------------------------
+				//!
+				virtual bool Update() = 0;
+
+		protected:
+
+				static boost::scoped_ptr<IGame> m_pInstance;
 		};
 
 }//Common
