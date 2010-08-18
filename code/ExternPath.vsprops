@@ -6,16 +6,16 @@
 	>
 	<Tool
 		Name="VCCLCompilerTool"
-		AdditionalIncludeDirectories="&quot;$(BOOST_HOME)&quot;;&quot;$(OGRE_HOME)/OgreMain/Include&quot;;&quot;$(OGRE_HOME)/Include&quot;"
+		AdditionalIncludeDirectories="&quot;$(BOOST_HOME)&quot;;&quot;$(OGRE_HOME)/OgreMain/Include&quot;;&quot;$(OGRE_HOME)/Include&quot;;&quot;$(DXSDK_HOME)/Include&quot;"
 	/>
 	<Tool
 		Name="VCLibrarianTool"
-		AdditionalDependencies="OgreMainStatic_d.lib FreeImaged.lib freetype2311_D.lib zziplibd.lib zlibd.lib"
-		AdditionalLibraryDirectories="&quot;$(OGRE_HOME)/lib/$(ConfigurationName)&quot;;&quot;$(OGRE_HOME)/Dependencies/lib/$(ConfigurationName)&quot;"
+		AdditionalDependencies="OgreMainStatic_d.lib FreeImaged.lib freetype2311_D.lib zziplibd.lib zlibd.lib d3dx9.lib d3d9.lib DXErr.lib dxguid.lib"
+		AdditionalLibraryDirectories="&quot;$(OGRE_HOME)/lib/$(ConfigurationName)&quot;;&quot;$(OGRE_HOME)/Dependencies/lib/$(ConfigurationName)&quot;;&quot;$(DXSDK_HOME)/lib/x86&quot;"
 	/>
 	<Tool
 		Name="VCLinkerTool"
-		AdditionalLibraryDirectories="&quot;$(OGRE_HOME)/lib/$(ConfigurationName)&quot;"
+		AdditionalLibraryDirectories="&quot;$(OGRE_HOME)/lib/$(ConfigurationName)&quot;;&quot;$(DXSDK_HOME)/lib/x86&quot;"
 	/>
 	<UserMacro
 		Name="OGRE_HOME"
@@ -25,5 +25,9 @@
 		Name="BOOST_HOME"
 		Value="../../external/boost_1_43_0"
 		PerformEnvironmentSet="true"
+	/>
+	<UserMacro
+		Name="DXSDK_HOME"
+		Value="C:\Program Files (x86)\Microsoft DirectX SDK (August 2009)"
 	/>
 </VisualStudioPropertySheet>

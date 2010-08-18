@@ -48,6 +48,10 @@ namespace Main{
 				//!
 				virtual bool Update() = 0;
 
+				//-----------------------------------------------------------------------------
+				//!
+				virtual void Quit() = 0;
+
 		protected:
 
 				static boost::scoped_ptr<IGame> m_pInstance;

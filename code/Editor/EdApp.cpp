@@ -15,10 +15,10 @@ EdApp::~EdApp()
 bool EdApp::OnInit()
 {
 		EdFrame *frame = new EdFrame(NULL);
-    frame->Show(true);
-    SetTopWindow(frame);
+		frame->Show(true);
+		SetTopWindow(frame);
 		
 		frame->Init();
-
-	  return true;
+		
+		return true;
 }

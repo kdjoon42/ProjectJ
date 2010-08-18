@@ -50,6 +50,7 @@
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
 				DebugInformationFormat="4"
+				DisableSpecificWarnings="4819"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -205,6 +206,14 @@
 		</File>
 		<File
 			RelativePath=".\EdGUI.h"
+			>
+		</File>
+		<File
+			RelativePath=".\EdRenderView.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\EdRenderView.h"
 			>
 		</File>
 		<File

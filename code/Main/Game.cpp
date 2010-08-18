@@ -41,6 +41,10 @@ namespace Main{
 				//!
 				bool Update();
 
+				//-----------------------------------------------------------------------------
+				//!
+				void Quit() { m_bQuit = true; }
+
 		protected:
 				bool m_bQuit;
 
@@ -83,19 +87,24 @@ namespace Main{
 		{
 				m_pEngine.reset(IEngine::Create(config));
 
+				m_bQuit = false;
+
 				return true;
 		}
 
 		//-----------------------------------------------------------------------------
 		void Game::Shutdown()
 		{
-
+				m_pEngine->Update();
 				m_pInstance.reset();
 		}
 
 		//-----------------------------------------------------------------------------
 		bool Game::Update()
 		{
+				if(!m_pEngine->Update())
+						m_bQuit = true;
+
 				return m_bQuit ? false : true;
 		}
 

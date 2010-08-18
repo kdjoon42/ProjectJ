@@ -10,6 +10,10 @@
 #include <Main/IEngine.h>
 
 #include <OgreRoot.h>
+#include <OgreD3D9RenderSystem.h>
+#include <OgreWindowEventUtilities.h>
+#include <OgreRenderWindow.h>
+
 
 namespace Main{
 
@@ -25,10 +29,17 @@ namespace Main{
 				//-----------------------------------------------------------------------------
 				//!
 				virtual ~Engine();
+
+				//-----------------------------------------------------------------------------
+				//!
+				bool Update();
 				
 		protected:
 
 				Ogre::Root* m_pRoot;
+				Ogre::RenderWindow*	m_pRenderWnd;
+				Ogre::D3D9RenderSystem* m_pRenderSystem;
+
 
 		};
 
@@ -45,12 +56,56 @@ namespace Main{
 		Engine::Engine(const GameConfig& gc)
 		{
 				m_pRoot = new Ogre::Root();
+
+				HINSTANCE hInst = GetModuleHandle( NULL );
+				m_pRenderSystem = new Ogre::D3D9RenderSystem( hInst );
+				m_pRoot->setRenderSystem(m_pRenderSystem);
+
+				m_pRenderSystem->setConfigOption("Full Screen","No");
+				m_pRenderSystem->setConfigOption("Allow NVPerfHUD","Yes");
+
+				if(gc.hWnd)
+				{
+						m_pRoot->initialise(false);
+
+						Ogre::NameValuePairList miscParams;
+						miscParams["externalWindowHandle"] = Ogre::StringConverter::toString(reinterpret_cast<size_t>(gc.hWnd));
+						m_pRenderWnd = m_pRoot->createRenderWindow("Editor", 1,1,false,&miscParams);
+				}
+				else
+				{
+						m_pRenderWnd = m_pRoot->initialise(true, "GameJ");
+				}
 		}
 
 		//-----------------------------------------------------------------------------
 		Engine::~Engine()
 		{
+				m_pRoot->shutdown();
+				delete m_pRenderSystem;
 				delete m_pRoot;
+
+		}
+
+		//-----------------------------------------------------------------------------
+		bool Engine::Update()
+		{
+				bool bContinue = !(m_pRenderWnd->isClosed());
+
+				Ogre::WindowEventUtilities::messagePump();
+		
+				if(m_pRenderWnd->isActive())
+				{
+						float timeDelta = 0.033f;
+						if(!m_pRoot->renderOneFrame(timeDelta))
+								bContinue = false;
+				}
+				else
+				{
+						Sleep(1000);
+				}
+
+				return bContinue;
 		}
 		
 
