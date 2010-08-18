@@ -10,8 +10,8 @@
 	/>
 	<Tool
 		Name="VCLibrarianTool"
-		AdditionalDependencies="OgreMain_d.lib"
-		AdditionalLibraryDirectories="&quot;$(OGRE_HOME)/lib/$(ConfigurationName)&quot;"
+		AdditionalDependencies="OgreMainStatic_d.lib FreeImaged.lib freetype2311_D.lib zziplibd.lib zlibd.lib"
+		AdditionalLibraryDirectories="&quot;$(OGRE_HOME)/lib/$(ConfigurationName)&quot;;&quot;$(OGRE_HOME)/Dependencies/lib/$(ConfigurationName)&quot;"
 	/>
 	<Tool
 		Name="VCLinkerTool"
