@@ -95,7 +95,6 @@ namespace Main{
 		//-----------------------------------------------------------------------------
 		void Game::Shutdown()
 		{
-				m_pEngine->Update();
 				m_pInstance.reset();
 		}
 

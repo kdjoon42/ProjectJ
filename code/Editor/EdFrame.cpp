@@ -33,6 +33,7 @@ void EdFrame::Init()
 //-----------------------------------------------------------------------------
 void EdFrame::OnClose( wxCloseEvent& event )
 {
+		Ed::IEditor::Instance().Shutdown();
 		m_pEditor = 0;
 
 		event.Skip();
@@ -43,8 +44,8 @@ void EdFrame::OnIdle( wxIdleEvent& event )
 {
 		if(m_pEditor)
 				m_pEditor->Update();
-		else
-				Ed::IEditor::Instance().Shutdown();
+		//else
+		//		Ed::IEditor::Instance().Shutdown();
 
 		event.Skip();		
 }

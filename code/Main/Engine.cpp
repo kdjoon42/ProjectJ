@@ -39,6 +39,7 @@ namespace Main{
 				Ogre::Root* m_pRoot;
 				Ogre::RenderWindow*	m_pRenderWnd;
 				Ogre::D3D9RenderSystem* m_pRenderSystem;
+				Ogre::Viewport* m_pViewport;
 
 
 		};
@@ -76,6 +77,9 @@ namespace Main{
 				{
 						m_pRenderWnd = m_pRoot->initialise(true, "GameJ");
 				}
+
+				m_pViewport = m_pRenderWnd->addViewport(0);
+
 		}
 
 		//-----------------------------------------------------------------------------

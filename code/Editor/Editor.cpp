@@ -79,9 +79,9 @@ namespace Ed{
 		//-----------------------------------------------------------------------------
 		void Editor::Shutdown()
 		{
-			//	Main::IGame::Instance().Shutdown();
-			//	m_pInstance.reset();
+				m_pGame->Shutdown();
 				m_pGame = 0;
+				m_pInstance.reset();
 		}
 
 		//-----------------------------------------------------------------------------
