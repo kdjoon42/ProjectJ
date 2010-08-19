@@ -12,7 +12,7 @@
 
 
 #include <Main/Game.h>
-#include <Main/IEngine.h>
+#include <Core/IEngine.h>
 
 namespace Main{
 
@@ -48,7 +48,7 @@ namespace Main{
 		protected:
 				bool m_bQuit;
 
-				boost::scoped_ptr<IEngine> m_pEngine;
+				boost::scoped_ptr<Core::IEngine> m_pEngine;
 		};
 
 		//////////////////////////////////////////////////////////////////////////
@@ -85,7 +85,7 @@ namespace Main{
 		//-----------------------------------------------------------------------------
 		bool Game::Initialize(const GameConfig& config)
 		{
-				m_pEngine.reset(IEngine::Create(config));
+				m_pEngine.reset(Core::IEngine::Create(config));
 
 				m_bQuit = false;
 

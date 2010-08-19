@@ -1,7 +1,10 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 10.00
-# Visual C++ Express 2008
+# Visual Studio 2008
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Main", "Main\Main.vcproj", "{9C746F4D-E8E0-4144-A079-542BC883B2C9}"
+	ProjectSection(ProjectDependencies) = postProject
+		{329E62BA-ECD6-4D48-B32A-0C3DA4495ACE} = {329E62BA-ECD6-4D48-B32A-0C3DA4495ACE}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Editor", "Editor\Editor.vcproj", "{B5DDFE53-0905-4123-942C-9A199BE7B424}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -14,6 +17,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Launcher", "Launcher\Launch
 	ProjectSection(ProjectDependencies) = postProject
 		{9C746F4D-E8E0-4144-A079-542BC883B2C9} = {9C746F4D-E8E0-4144-A079-542BC883B2C9}
 	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Core", "Core\Core.vcproj", "{329E62BA-ECD6-4D48-B32A-0C3DA4495ACE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -37,6 +42,10 @@ Global
 		{F012B22F-0DFC-4D17-9159-4A0E7252F375}.Debug|Win32.Build.0 = Debug|Win32
 		{F012B22F-0DFC-4D17-9159-4A0E7252F375}.Release|Win32.ActiveCfg = Release|Win32
 		{F012B22F-0DFC-4D17-9159-4A0E7252F375}.Release|Win32.Build.0 = Release|Win32
+		{329E62BA-ECD6-4D48-B32A-0C3DA4495ACE}.Debug|Win32.ActiveCfg = Debug|Win32
+		{329E62BA-ECD6-4D48-B32A-0C3DA4495ACE}.Debug|Win32.Build.0 = Debug|Win32
+		{329E62BA-ECD6-4D48-B32A-0C3DA4495ACE}.Release|Win32.ActiveCfg = Release|Win32
+		{329E62BA-ECD6-4D48-B32A-0C3DA4495ACE}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -11,7 +11,7 @@
 
 #include <Common/IGame.h>
 
-namespace Main{
+namespace Core{
 
 		//-----------------------------------------------------------------------------
 		//!
@@ -20,7 +20,7 @@ namespace Main{
 		public:
 				//-----------------------------------------------------------------------------
 				//!
-				static IEngine* Create(const GameConfig& gc);
+				static IEngine* Create(const Main::GameConfig& gc);
 
 				//-----------------------------------------------------------------------------
 				//!

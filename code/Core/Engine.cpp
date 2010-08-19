@@ -7,7 +7,7 @@
 //
 //////////////////////////////////////////////////////////////////////////// 
 
-#include <Main/IEngine.h>
+#include <Core/IEngine.h>
 
 #include <OgreRoot.h>
 #include <OgreD3D9RenderSystem.h>
@@ -15,7 +15,7 @@
 #include <OgreRenderWindow.h>
 
 
-namespace Main{
+namespace Core{
 
 		//-----------------------------------------------------------------------------
 		//!
@@ -24,7 +24,7 @@ namespace Main{
 		public:
 				//-----------------------------------------------------------------------------
 				//!
-				Engine(const GameConfig& gc);
+				Engine(const Main::GameConfig& gc);
 
 				//-----------------------------------------------------------------------------
 				//!
@@ -48,13 +48,13 @@ namespace Main{
 		//
 
 		//-----------------------------------------------------------------------------
-		IEngine* IEngine::Create(const GameConfig& gc)
+		IEngine* IEngine::Create(const Main::GameConfig& gc)
 		{
 				return new Engine(gc);
 		}
 
 		//-----------------------------------------------------------------------------
-		Engine::Engine(const GameConfig& gc)
+		Engine::Engine(const Main::GameConfig& gc)
 		{
 				m_pRoot = new Ogre::Root();
 
