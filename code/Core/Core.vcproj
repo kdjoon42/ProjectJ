@@ -150,12 +150,44 @@
 	<References>
 	</References>
 	<Files>
+		<Filter
+			Name="Impl"
+			>
+			<File
+				RelativePath=".\Engine.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\GameStateManager.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\LevelSystem.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\ResourceManager.cpp"
+				>
+			</File>
+		</Filter>
 		<File
-			RelativePath=".\Engine.cpp"
+			RelativePath=".\IEngine.h"
 			>
 		</File>
 		<File
-			RelativePath=".\IEngine.h"
+			RelativePath=".\IGameState.h"
+			>
+		</File>
+		<File
+			RelativePath=".\IGameStateManager.h"
+			>
+		</File>
+		<File
+			RelativePath=".\ILevelSystem.h"
+			>
+		</File>
+		<File
+			RelativePath=".\IResourceManager.h"
 			>
 		</File>
 	</Files>

@@ -115,7 +115,7 @@
 	</References>
 	<Files>
 		<File
-			RelativePath=".\IGame.h"
+			RelativePath=".\GameConfig.h"
 			>
 		</File>
 	</Files>

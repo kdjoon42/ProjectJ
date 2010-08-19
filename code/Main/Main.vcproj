@@ -150,6 +150,14 @@
 			RelativePath=".\Game.cpp"
 			>
 		</File>
+		<File
+			RelativePath=".\GameStateTest.h"
+			>
+		</File>
+		<File
+			RelativePath=".\IGame.h"
+			>
+		</File>
 	</Files>
 	<Globals>
 	</Globals>

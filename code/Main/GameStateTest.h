@@ -2,59 +2,59 @@
 //
 //  Copyright (C) Justin 2010-.
 // -------------------------------------------------------------------------
-//  File name: IGame.h
-//  Created:   06-08-2010 by Dongjoon Kim
+//  File name: GameStateTest.h
+//  Created:   19-08-2010 by Dongjoon Kim
 //
 //////////////////////////////////////////////////////////////////////////// 
 
 #pragma once
 
-#include <Windows.h>
-#include <boost/scoped_ptr.hpp>
+#include <Core/IGameState.h>
+#include <Core/IGameStateManager.h>
 
-namespace Main{
-
-		//-----------------------------------------------------------------------------
-		//!
-		struct GameConfig
-		{
-				GameConfig():hWnd(0){}
-
-				HWND hWnd;
-		};
+namespace Main
+{
 
 		//-----------------------------------------------------------------------------
-		//!
-		class IGame
+		class GameStateTest : public Core::IGameState
 		{
 		public:
-				//-----------------------------------------------------------------------------
-				//!
-				static IGame& Instance();
+				DECLARE_GAEMSTATE_CLASS(GameStateTest);
 
 				//-----------------------------------------------------------------------------
 				//!
-				virtual ~IGame(){}
+				virtual void Enter()
+				{
+
+				}
 
 				//-----------------------------------------------------------------------------
 				//!
-				virtual bool Initialize(const GameConfig& config) = 0;
+				virtual void Exit()
+				{
+
+				}
 
 				//-----------------------------------------------------------------------------
 				//!
-				virtual void Shutdown() = 0;
+				virtual bool Pause()
+				{
+						return true;
+				}
 
 				//-----------------------------------------------------------------------------
 				//!
-				virtual bool Update() = 0;
+				virtual void Resume()
+				{
+
+				}
 
 				//-----------------------------------------------------------------------------
 				//!
-				virtual void Quit() = 0;
+				virtual void Update(float timeDelta)
+				{
 
-		protected:
-
-				static boost::scoped_ptr<IGame> m_pInstance;
+				}
 		};
 
-}//Common
+}//Main

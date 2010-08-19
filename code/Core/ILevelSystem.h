@@ -2,33 +2,28 @@
 //
 //  Copyright (C) Justin 2010-.
 // -------------------------------------------------------------------------
-//  File name: IEngine.h
-//  Created:   17-08-2010 by Dongjoon Kim
+//  File name: ILevelSystem.h
+//  Created:   19-08-2010 by Dongjoon Kim
 //
 //////////////////////////////////////////////////////////////////////////// 
 
 #pragma once
 
-#include <Common/GameConfig.h>
-
 namespace Core{
 
 		//-----------------------------------------------------------------------------
 		//!
-		class IEngine
+		class ILevelSystem
 		{
 		public:
-				//-----------------------------------------------------------------------------
-				//!
-				static IEngine* Create(const Com::GameConfig& gc);
 
 				//-----------------------------------------------------------------------------
 				//!
-				virtual ~IEngine(){}
+				static ILevelSystem* Create();
 
 				//-----------------------------------------------------------------------------
 				//!
-				virtual bool Update() = 0;
-				
+				virtual ~ILevelSystem(){}
 		};
-}
+
+}// Core

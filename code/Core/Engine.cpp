@@ -8,11 +8,14 @@
 //////////////////////////////////////////////////////////////////////////// 
 
 #include <Core/IEngine.h>
+#include <Core/IResourceManager.h>
 
 #include <OgreRoot.h>
 #include <OgreD3D9RenderSystem.h>
 #include <OgreWindowEventUtilities.h>
 #include <OgreRenderWindow.h>
+
+#include <boost/scoped_ptr.hpp>
 
 
 namespace Core{
@@ -24,7 +27,7 @@ namespace Core{
 		public:
 				//-----------------------------------------------------------------------------
 				//!
-				Engine(const Main::GameConfig& gc);
+				Engine(const Com::GameConfig& gc);
 
 				//-----------------------------------------------------------------------------
 				//!
@@ -35,6 +38,8 @@ namespace Core{
 				bool Update();
 				
 		protected:
+
+				boost::scoped_ptr<IResourceManager> m_pResourceManager;
 
 				Ogre::Root* m_pRoot;
 				Ogre::RenderWindow*	m_pRenderWnd;
@@ -48,13 +53,13 @@ namespace Core{
 		//
 
 		//-----------------------------------------------------------------------------
-		IEngine* IEngine::Create(const Main::GameConfig& gc)
+		IEngine* IEngine::Create(const Com::GameConfig& gc)
 		{
 				return new Engine(gc);
 		}
 
 		//-----------------------------------------------------------------------------
-		Engine::Engine(const Main::GameConfig& gc)
+		Engine::Engine(const Com::GameConfig& gc)
 		{
 				m_pRoot = new Ogre::Root();
 
@@ -79,6 +84,10 @@ namespace Core{
 				}
 
 				m_pViewport = m_pRenderWnd->addViewport(0);
+
+
+				//////////////////////////////////////////////////////////////////////////
+				m_pResourceManager.reset( IResourceManager::Create());
 
 		}
 

@@ -2,33 +2,31 @@
 //
 //  Copyright (C) Justin 2010-.
 // -------------------------------------------------------------------------
-//  File name: IEngine.h
-//  Created:   17-08-2010 by Dongjoon Kim
+//  File name: IResourceManager.h
+//  Created:   19-08-2010 by Dongjoon Kim
 //
 //////////////////////////////////////////////////////////////////////////// 
+ 
 
 #pragma once
 
-#include <Common/GameConfig.h>
-
 namespace Core{
 
-		//-----------------------------------------------------------------------------
-		//!
-		class IEngine
+		class IResourceManager
 		{
 		public:
-				//-----------------------------------------------------------------------------
-				//!
-				static IEngine* Create(const Com::GameConfig& gc);
 
 				//-----------------------------------------------------------------------------
 				//!
-				virtual ~IEngine(){}
+				static IResourceManager* Create();
 
 				//-----------------------------------------------------------------------------
 				//!
-				virtual bool Update() = 0;
-				
+				virtual ~IResourceManager(){}
+
+		protected:
+				IResourceManager(){}
+
 		};
-}
+
+}//Core

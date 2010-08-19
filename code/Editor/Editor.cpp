@@ -5,7 +5,10 @@
 #include <Windows.h>
 #include <string>
 
-#include <Common/IGame.h>
+#include <Main/IGame.h>
+
+#include <Main/GameStateTest.h>
+
 
 namespace Ed{
 
@@ -74,6 +77,11 @@ namespace Ed{
 		void Editor::Initialize(Main::IGame* pGame)
 		{
 				m_pGame = pGame;
+
+				Core::IGameStateManager* pStateMan = m_pGame->GetGameStateManager();
+				Main::GameStateTest::Create(pStateMan, "StateTest");
+
+				pStateMan->Change(pStateMan->FindByName("StateTest"));
 		}
 
 		//-----------------------------------------------------------------------------

@@ -10,14 +10,14 @@
 #include <Windows.h>
 #include <string>
 
-#include <Common/IGame.h>
+#include <Main/IGame.h>
 
 //-----------------------------------------------------------------------------
 int APIENTRY WinMain
 (HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
 {
 		
-		Main::GameConfig gc;
+		Com::GameConfig gc;
 		Main::IGame& game = Main::IGame::Instance();
 
 		if(!game.Initialize(gc))

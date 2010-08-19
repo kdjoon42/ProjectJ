@@ -7,12 +7,13 @@
 //
 //////////////////////////////////////////////////////////////////////////// 
 
+#include <Main/IGame.h>
+#include <Core/IEngine.h>
+#include <Core/ILevelSystem.h>
+#include <Core/IGameStateManager.h>
+
 #include <Windows.h>
 #include <boost/scoped_ptr.hpp>
-
-
-#include <Main/Game.h>
-#include <Core/IEngine.h>
 
 namespace Main{
 
@@ -31,7 +32,7 @@ namespace Main{
 
 				//-----------------------------------------------------------------------------
 				//!
-				bool Initialize(const GameConfig& config);
+				bool Initialize(const Com::GameConfig& config);
 
 				//-----------------------------------------------------------------------------
 				//!
@@ -45,10 +46,16 @@ namespace Main{
 				//!
 				void Quit() { m_bQuit = true; }
 
+				//-----------------------------------------------------------------------------
+				//!
+				Core::IGameStateManager* GetGameStateManager() { return m_pGameStateManager.get(); }
+
 		protected:
 				bool m_bQuit;
 
 				boost::scoped_ptr<Core::IEngine> m_pEngine;
+				boost::scoped_ptr<Core::ILevelSystem> m_pLevelSystem;
+				boost::scoped_ptr<Core::IGameStateManager> m_pGameStateManager;
 		};
 
 		//////////////////////////////////////////////////////////////////////////
@@ -83,9 +90,13 @@ namespace Main{
 
 
 		//-----------------------------------------------------------------------------
-		bool Game::Initialize(const GameConfig& config)
+		bool Game::Initialize(const Com::GameConfig& config)
 		{
 				m_pEngine.reset(Core::IEngine::Create(config));
+
+				m_pLevelSystem.reset(Core::ILevelSystem::Create());
+
+				m_pGameStateManager.reset(Core::IGameStateManager::Create());
 
 				m_bQuit = false;
 
@@ -101,6 +112,9 @@ namespace Main{
 		//-----------------------------------------------------------------------------
 		bool Game::Update()
 		{
+				if(m_pGameStateManager)
+						m_pGameStateManager->Update(0.033f);
+
 				if(!m_pEngine->Update())
 						m_bQuit = true;
 
