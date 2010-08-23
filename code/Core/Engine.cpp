@@ -45,8 +45,8 @@ namespace Core{
 				Ogre::RenderWindow*	m_pRenderWnd;
 				Ogre::D3D9RenderSystem* m_pRenderSystem;
 				Ogre::Viewport* m_pViewport;
-
-
+				Ogre::Camera* m_pCamera;
+				Ogre::SceneManager* m_pSceneManager;
 		};
 
 		//////////////////////////////////////////////////////////////////////////
@@ -83,10 +83,14 @@ namespace Core{
 						m_pRenderWnd = m_pRoot->initialise(true, "GameJ");
 				}
 
-				m_pViewport = m_pRenderWnd->addViewport(0);
+				m_pSceneManager = m_pRoot->createSceneManager("DefaultSceneManager");
+				m_pCamera = m_pSceneManager->createCamera("Default");
+				m_pViewport = m_pRenderWnd->addViewport(m_pCamera);
+				m_pCamera->setAspectRatio(
+						Ogre::Real(m_pViewport->getActualWidth()) / Ogre::Real(m_pViewport->getActualHeight()));
 
 
-				//////////////////////////////////////////////////////////////////////////
+
 				m_pResourceManager.reset( IResourceManager::Create());
 
 		}
@@ -94,6 +98,7 @@ namespace Core{
 		//-----------------------------------------------------------------------------
 		Engine::~Engine()
 		{
+				m_pRoot->destroySceneManager(m_pSceneManager);
 				m_pRoot->shutdown();
 				delete m_pRenderSystem;
 				delete m_pRoot;

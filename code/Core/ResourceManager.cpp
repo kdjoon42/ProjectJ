@@ -1,22 +1,20 @@
 ////////////////////////////////////////////////////////////////////////////
 //
-//  CryEngine Source File.
-//  Copyright (C), Crytek, 1999-2010.
+//  Copyright (C) Justin 2010-.
 // -------------------------------------------------------------------------
 //  File name: ResourceManager.cpp
-//  Version:   v1.00
-//  Created:   19-08-2010 by Dongjoon Kim
-//  Description:
-// -------------------------------------------------------------------------  
-//  History:
+//  Created:   23-08-2010 by Dongjoon Kim
 //
 //////////////////////////////////////////////////////////////////////////// 
+
 
 #include <Core/IResourceManager.h>
 
 #include <OgreResourceGroupManager.h>
+#include <OgreConfigFile.h>
 
 #include <OgreRoot.h>
+
 
 namespace Core{
 
@@ -37,7 +35,7 @@ namespace Core{
 		protected:
 				//-----------------------------------------------------------------------------
 				//!
-				void RegisterLocations();
+				void Initialize();
 
 		};
 
@@ -53,7 +51,7 @@ namespace Core{
 		//-----------------------------------------------------------------------------
 		ResourceManager::ResourceManager()
 		{
-				RegisterLocations();
+				Initialize();
 		}
 
 		//-----------------------------------------------------------------------------
@@ -63,21 +61,30 @@ namespace Core{
 		}
 
 		//-----------------------------------------------------------------------------
-		void ResourceManager::RegisterLocations()
+		void ResourceManager::Initialize()
 		{
-				Ogre::ResourceGroupManager::getSingleton().addResourceLocation("../Data/Models", "FileSystem", "Common");
+				Ogre::ConfigFile cf;
+				cf.load("resources.cfg");
 
-				
-				Ogre::ResourceGroupManager::getSingleton().initialiseResourceGroup("Common");
-				bool bExist = Ogre::ResourceGroupManager::getSingleton().resourceExists("Common", "ogrehead.mesh");
+				Ogre::ConfigFile::SectionIterator seci = cf.getSectionIterator();
+				Ogre::String sec, type, arch;
 
-				Ogre::SceneManager* pSM = Ogre::Root::getSingleton().createSceneManager(Ogre::ST_GENERIC);
-				Ogre::Entity* pEn = pSM->createEntity("ogrehead.mesh");
+				while (seci.hasMoreElements())
+				{
+						sec = seci.peekNextKey();
+						Ogre::ConfigFile::SettingsMultiMap* settings = seci.getNext();
+						Ogre::ConfigFile::SettingsMultiMap::iterator i;
 
-				int k=0;
-				
-				
+						for (i = settings->begin(); i != settings->end(); i++)
+						{
+								type = i->first;
+								arch = i->second;
+								Ogre::ResourceGroupManager::getSingleton().addResourceLocation(arch, type, sec);
+						}
+				}
+
+				Ogre::TextureManager::getSingleton().setDefaultNumMipmaps(5);
+				Ogre::ResourceGroupManager::getSingleton().initialiseAllResourceGroups();
 		}
-
 
 }//Core

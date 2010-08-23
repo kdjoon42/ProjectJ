@@ -1,5 +1,6 @@
 #include "EdFrame.h"
-#include <Common/IGame.h>
+#include <Common/GameConfig.h>
+#include <Main/IGame.h>
 
 #include <IEditor.h>
 #include <EdViewPanel.h>
@@ -19,7 +20,7 @@ EdFrame::EdFrame( wxWindow* parent )
 //-----------------------------------------------------------------------------
 void EdFrame::Init()
 {
-		Main::GameConfig gc;
+		Com::GameConfig gc;
 		gc.hWnd = (HWND)(m_pRenderView->GetHandle());
 
 		m_pEditor = &Ed::IEditor::Instance();
@@ -33,9 +34,7 @@ void EdFrame::Init()
 //-----------------------------------------------------------------------------
 void EdFrame::OnClose( wxCloseEvent& event )
 {
-		Ed::IEditor::Instance().Shutdown();
 		m_pEditor = 0;
-
 		event.Skip();
 }
 
@@ -44,8 +43,8 @@ void EdFrame::OnIdle( wxIdleEvent& event )
 {
 		if(m_pEditor)
 				m_pEditor->Update();
-		//else
-		//		Ed::IEditor::Instance().Shutdown();
+		else
+				Ed::IEditor::Instance().Shutdown();
 
 		event.Skip();		
 }
