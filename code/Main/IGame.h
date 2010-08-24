@@ -16,7 +16,11 @@
 
 //-----------------------------------------------------------------------------
 //!
-namespace Core{ class IGameStateManager; }
+namespace Core
+{ 
+		class IGameStateManager; 
+		class IEngine;
+}
 
 namespace Main{
 
@@ -52,6 +56,10 @@ namespace Main{
 				//-----------------------------------------------------------------------------
 				//!
 				virtual Core::IGameStateManager* GetGameStateManager() = 0;
+
+				//-----------------------------------------------------------------------------
+				//!
+				virtual Core::IEngine* GetEngine() = 0;
 
 		protected:
 

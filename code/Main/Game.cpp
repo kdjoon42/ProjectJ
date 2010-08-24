@@ -50,6 +50,10 @@ namespace Main{
 				//!
 				Core::IGameStateManager* GetGameStateManager() { return m_pGameStateManager.get(); }
 
+				//-----------------------------------------------------------------------------
+				//!
+				Core::IEngine* GetEngine() { return m_pEngine.get(); }
+
 		protected:
 				bool m_bQuit;
 

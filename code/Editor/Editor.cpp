@@ -6,7 +6,8 @@
 #include <string>
 
 #include <Main/IGame.h>
-
+#include <Core/IGrid.h>
+#include <Core/IEngine.h>
 #include <Main/GameStateTest.h>
 
 
@@ -44,6 +45,7 @@ namespace Ed{
 		protected:
 
 				Main::IGame* m_pGame;
+				boost::scoped_ptr<Core::IGrid> m_pGrid;
 		};
 
 		//-----------------------------------------------------------------------------
@@ -82,11 +84,14 @@ namespace Ed{
 				Main::GameStateTest::Create(pStateMan, "StateTest");
 
 				pStateMan->Change(pStateMan->FindByName("StateTest"));
+
+				m_pGrid.reset(m_pGame->GetEngine()->CreateGrid());
 		}
 
 		//-----------------------------------------------------------------------------
 		void Editor::Shutdown()
 		{
+				m_pGrid.reset();
 				m_pGame->Shutdown();
 				m_pGame = 0;
 				m_pInstance.reset();

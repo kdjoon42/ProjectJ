@@ -9,6 +9,7 @@
 
 #include <Core/IEngine.h>
 #include <Core/IResourceManager.h>
+#include <Core/Grid.h>
 
 #include <OgreRoot.h>
 #include <OgreD3D9RenderSystem.h>
@@ -36,6 +37,10 @@ namespace Core{
 				//-----------------------------------------------------------------------------
 				//!
 				bool Update();
+
+				//-----------------------------------------------------------------------------
+				//!
+				IGrid* CreateGrid();
 				
 		protected:
 
@@ -83,16 +88,13 @@ namespace Core{
 						m_pRenderWnd = m_pRoot->initialise(true, "GameJ");
 				}
 
-				m_pSceneManager = m_pRoot->createSceneManager("DefaultSceneManager");
+				m_pSceneManager = m_pRoot->createSceneManager(Ogre::ST_EXTERIOR_CLOSE);
 				m_pCamera = m_pSceneManager->createCamera("Default");
 				m_pViewport = m_pRenderWnd->addViewport(m_pCamera);
 				m_pCamera->setAspectRatio(
 						Ogre::Real(m_pViewport->getActualWidth()) / Ogre::Real(m_pViewport->getActualHeight()));
 
-
-
 				m_pResourceManager.reset( IResourceManager::Create());
-
 		}
 
 		//-----------------------------------------------------------------------------
@@ -125,7 +127,11 @@ namespace Core{
 
 				return bContinue;
 		}
-		
 
+		//-----------------------------------------------------------------------------
+		IGrid* Engine::CreateGrid()
+		{
+				return new Grid(m_pSceneManager);
+		}
 
 }//Main

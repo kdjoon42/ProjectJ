@@ -162,6 +162,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Grid.h"
+				>
+			</File>
+			<File
 				RelativePath=".\LevelSystem.cpp"
 				>
 			</File>
@@ -180,6 +184,10 @@
 		</File>
 		<File
 			RelativePath=".\IGameStateManager.h"
+			>
+		</File>
+		<File
+			RelativePath=".\IGrid.h"
 			>
 		</File>
 		<File
