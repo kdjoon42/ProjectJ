@@ -10,6 +10,7 @@
 #include <Core/IEngine.h>
 #include <Core/IResourceManager.h>
 #include <Core/Grid.h>
+#include <Core/DefaultCameraManipulator.h>
 
 #include <OgreRoot.h>
 #include <OgreD3D9RenderSystem.h>
@@ -41,6 +42,14 @@ namespace Core{
 				//-----------------------------------------------------------------------------
 				//!
 				IGrid* CreateGrid();
+
+				//-----------------------------------------------------------------------------
+				//!
+				void OnRenderViewSize();
+
+				//-----------------------------------------------------------------------------
+				//!
+				ICameraManipulator* CreateCameraManipulator();
 				
 		protected:
 
@@ -104,7 +113,6 @@ namespace Core{
 				m_pRoot->shutdown();
 				delete m_pRenderSystem;
 				delete m_pRoot;
-
 		}
 
 		//-----------------------------------------------------------------------------
@@ -132,6 +140,23 @@ namespace Core{
 		IGrid* Engine::CreateGrid()
 		{
 				return new Grid(m_pSceneManager);
+		}
+
+		//-----------------------------------------------------------------------------
+		void Engine::OnRenderViewSize()
+		{
+				if(m_pRenderWnd)
+						m_pRenderWnd->windowMovedOrResized();
+
+				if(m_pCamera)
+						m_pCamera->setAspectRatio(
+						Ogre::Real(m_pViewport->getActualWidth()) / Ogre::Real(m_pViewport->getActualHeight()));
+		}
+
+		//-----------------------------------------------------------------------------
+		ICameraManipulator* Engine::CreateCameraManipulator()
+		{
+				return m_pCamera ? new DefaultCameraManipulator(m_pCamera) : 0;
 		}
 
 }//Main

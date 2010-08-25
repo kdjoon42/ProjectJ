@@ -2,49 +2,45 @@
 //
 //  Copyright (C) Justin 2010-.
 // -------------------------------------------------------------------------
-//  File name: IEngine.h
-//  Created:   17-08-2010 by Dongjoon Kim
+//  File name: ICameraManipulator.h
+//  Created:   25-08-2010 by Dongjoon Kim
 //
 //////////////////////////////////////////////////////////////////////////// 
 
 #pragma once
 
-#include <Common/GameConfig.h>
+#include <OgreVector3.h>
 
 namespace Core{
 
 		//-----------------------------------------------------------------------------
 		//!
-		class IGrid;
-		class ICameraManipulator;
-
-		//-----------------------------------------------------------------------------
-		//!
-		class IEngine
+		class ICameraManipulator
 		{
 		public:
 				//-----------------------------------------------------------------------------
 				//!
-				static IEngine* Create(const Com::GameConfig& gc);
+				virtual ~ICameraManipulator(){}
 
 				//-----------------------------------------------------------------------------
 				//!
-				virtual ~IEngine(){}
+				virtual void Set(const Ogre::Vector3& pos, const Ogre::Vector3& lookAt) = 0;
 
 				//-----------------------------------------------------------------------------
 				//!
-				virtual bool Update() = 0;
+				virtual void Yaw(float radian) = 0;
 
 				//-----------------------------------------------------------------------------
 				//!
-				virtual IGrid* CreateGrid() = 0;
+				virtual void Pitch(float radian) = 0;
 
 				//-----------------------------------------------------------------------------
 				//!
-				virtual void OnRenderViewSize() = 0;
+				virtual void Pan(float deltaX, float deltaY) = 0;
 
 				//-----------------------------------------------------------------------------
 				//!
-				virtual ICameraManipulator* CreateCameraManipulator() = 0;
+				virtual void Zoom(float deltaZ) = 0;
 		};
-}
+
+} //Core

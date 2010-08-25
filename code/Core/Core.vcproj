@@ -154,6 +154,10 @@
 			Name="Impl"
 			>
 			<File
+				RelativePath=".\DefaultCameraManipulator.h"
+				>
+			</File>
+			<File
 				RelativePath=".\Engine.cpp"
 				>
 			</File>
@@ -174,6 +178,10 @@
 				>
 			</File>
 		</Filter>
+		<File
+			RelativePath=".\ICameraManipulator.h"
+			>
+		</File>
 		<File
 			RelativePath=".\IEngine.h"
 			>

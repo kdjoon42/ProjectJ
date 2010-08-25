@@ -8,8 +8,11 @@
 #include <Main/IGame.h>
 #include <Core/IGrid.h>
 #include <Core/IEngine.h>
+#include <Core/ICameraManipulator.h>
+
 #include <Main/GameStateTest.h>
 
+#include <OgreVector3.h>
 
 namespace Ed{
 
@@ -42,10 +45,15 @@ namespace Ed{
 				//!
 				void Update();
 
+				//-----------------------------------------------------------------------------
+				//!
+				Core::ICameraManipulator* GetCamManipulator() { return m_pCamManipulator.get(); }
+
 		protected:
 
 				Main::IGame* m_pGame;
 				boost::scoped_ptr<Core::IGrid> m_pGrid;
+				boost::scoped_ptr<Core::ICameraManipulator> m_pCamManipulator;
 		};
 
 		//-----------------------------------------------------------------------------
@@ -72,7 +80,13 @@ namespace Ed{
 		//-----------------------------------------------------------------------------
 		Editor::~Editor()
 		{
+				m_pGrid.reset();
 
+				if(m_pGame)
+				{
+						m_pGame->Shutdown();
+						m_pGame = 0;
+				}
 		}
 
 		//-----------------------------------------------------------------------------
@@ -86,14 +100,15 @@ namespace Ed{
 				pStateMan->Change(pStateMan->FindByName("StateTest"));
 
 				m_pGrid.reset(m_pGame->GetEngine()->CreateGrid());
+				m_pGrid->Initialze(100.f, 1.f);
+
+				m_pCamManipulator.reset(m_pGame->GetEngine()->CreateCameraManipulator());
+				m_pCamManipulator->Set(Ogre::Vector3(-50.f, 0.f, 50.f),Ogre::Vector3(0,0,0));
 		}
 
 		//-----------------------------------------------------------------------------
 		void Editor::Shutdown()
 		{
-				m_pGrid.reset();
-				m_pGame->Shutdown();
-				m_pGame = 0;
 				m_pInstance.reset();
 		}
 

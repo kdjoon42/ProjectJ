@@ -58,14 +58,43 @@ namespace Core{
 				void Initialze(float size, float cellSize)
 				{
 						int numLines = (int)( size / cellSize) + 1;
-						float worldSize = (float)numLines*cellSize;
+						float worldSize = (float)(int)( size / cellSize)*cellSize;
 
 						m_pGrid->estimateVertexCount(4*numLines);
 						m_pGrid->begin(GRID_MATERIAL_NAME, Ogre::RenderOperation::OT_LINE_LIST);
 
 						float worldLeft = -worldSize/2.f;
-									
+						float worldRight = worldSize/2.f;
+						float worldBottom = worldLeft;
+						float worldTop = worldRight;
 
+						Ogre::ColourValue color(0.7f,0.7f,0.7f,0.7f);
+
+						float x = worldLeft;
+						while(x<=worldRight)
+						{								
+								m_pGrid->position(x,worldBottom,0);
+								m_pGrid->colour(x==0.f? Ogre::ColourValue(1.f,0,0,0.7f) : color);
+								m_pGrid->position(x,worldTop,0);
+								m_pGrid->colour(x==0.f? Ogre::ColourValue(1.f,0,0,0.7f) : color);
+
+								x+=cellSize;
+						}
+
+						float y = worldBottom;
+						while(y<=worldTop)
+						{
+								m_pGrid->position(worldLeft, y, 0);
+								m_pGrid->colour(y==0.f? Ogre::ColourValue(0.f,1,0,0.7f) : color);
+								m_pGrid->position(worldRight, y, 0);
+								m_pGrid->colour(y==0.f? Ogre::ColourValue(0.f,1,0,0.7f) : color);
+								
+								y+=cellSize;
+						}
+
+						m_pGrid->end();
+
+						m_pNode->attachObject(m_pGrid);
 				}
 				
 

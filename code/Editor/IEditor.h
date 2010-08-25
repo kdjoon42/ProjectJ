@@ -12,6 +12,7 @@
 #include <boost/scoped_ptr.hpp>
 
 namespace Main{ class IGame; }
+namespace Core{ class ICameraManipulator; }
 
 namespace Ed{
 
@@ -23,6 +24,10 @@ namespace Ed{
 				//-----------------------------------------------------------------------------
 				//!
 				static IEditor& Instance();
+
+				//-----------------------------------------------------------------------------
+				//!
+				virtual ~IEditor(){}
 
 				//-----------------------------------------------------------------------------
 				//!
@@ -39,6 +44,10 @@ namespace Ed{
 				//-----------------------------------------------------------------------------
 				//!
 				virtual void Update() = 0;
+
+				//-----------------------------------------------------------------------------
+				//!
+				virtual Core::ICameraManipulator* GetCamManipulator() = 0;
 
 		protected:
 				static boost::scoped_ptr<IEditor> m_pInstance;
