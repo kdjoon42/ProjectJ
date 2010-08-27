@@ -97,7 +97,7 @@ namespace Core{
 						m_pRenderWnd = m_pRoot->initialise(true, "GameJ");
 				}
 
-				m_pSceneManager = m_pRoot->createSceneManager(Ogre::ST_EXTERIOR_CLOSE);
+				m_pSceneManager = m_pRoot->createSceneManager(Ogre::ST_EXTERIOR_CLOSE,"SceneManager");
 				m_pCamera = m_pSceneManager->createCamera("Default");
 				m_pViewport = m_pRenderWnd->addViewport(m_pCamera);
 				m_pCamera->setAspectRatio(
@@ -109,6 +109,12 @@ namespace Core{
 		//-----------------------------------------------------------------------------
 		Engine::~Engine()
 		{
+				if(m_pRenderWnd)
+				{
+						m_pRenderWnd->destroy();
+						m_pRenderWnd = 0;
+				}
+
 				m_pRoot->destroySceneManager(m_pSceneManager);
 				m_pRoot->shutdown();
 				delete m_pRenderSystem;

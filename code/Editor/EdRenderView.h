@@ -44,6 +44,10 @@ public:
 		//!
 		virtual bool Show(bool show = true);
 
+		//-----------------------------------------------------------------------------
+		//!
+		void Update(float deltaTime);
+
 protected:
 		wxCoord m_lastX, m_lastY;
 

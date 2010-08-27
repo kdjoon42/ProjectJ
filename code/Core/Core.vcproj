@@ -177,6 +177,10 @@
 				RelativePath=".\ResourceManager.cpp"
 				>
 			</File>
+			<File
+				RelativePath=".\TerrainGenerator.cpp"
+				>
+			</File>
 		</Filter>
 		<File
 			RelativePath=".\ICameraManipulator.h"
@@ -204,6 +208,10 @@
 		</File>
 		<File
 			RelativePath=".\IResourceManager.h"
+			>
+		</File>
+		<File
+			RelativePath=".\ITerrainGenerator.h"
 			>
 		</File>
 	</Files>

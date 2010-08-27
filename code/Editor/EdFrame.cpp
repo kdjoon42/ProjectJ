@@ -6,6 +6,9 @@
 #include <EdViewPanel.h>
 #include <EdRenderView.h>
 
+#define ID_TIMER 1000
+#define TIMER_INTERVAL 33
+
 //-----------------------------------------------------------------------------
 EdFrame::EdFrame( wxWindow* parent )
 :Frame( parent ),m_pEditor(0)
@@ -15,6 +18,10 @@ EdFrame::EdFrame( wxWindow* parent )
 		vbox->Add(m_pRenderView, 1, wxEXPAND | wxALL, 0);
 		m_panelMain->SetSizer(vbox);
 
+		this->Connect(ID_TIMER, wxEVT_TIMER, wxTimerEventHandler(EdFrame::OnTimer));
+
+		m_pTimer =new wxTimer(this, ID_TIMER);
+		m_pTimer->Start(TIMER_INTERVAL);
 }
 
 //-----------------------------------------------------------------------------
@@ -34,17 +41,24 @@ void EdFrame::Init()
 //-----------------------------------------------------------------------------
 void EdFrame::OnClose( wxCloseEvent& event )
 {
+		Ed::IEditor::Instance().Shutdown();
 		m_pEditor = 0;
+		delete m_pTimer;
 		event.Skip();
 }
 
 //-----------------------------------------------------------------------------
 void EdFrame::OnIdle( wxIdleEvent& event )
 {
+		event.Skip();
+}
+
+//-----------------------------------------------------------------------------
+void EdFrame::OnTimer(wxTimerEvent& evt)
+{
 		if(m_pEditor)
 				m_pEditor->Update();
-		else
-				Ed::IEditor::Instance().Shutdown();
 
-		event.Skip();		
+		if(m_pRenderView)
+				m_pRenderView->Update(evt.GetInterval()/1000.f);
 }

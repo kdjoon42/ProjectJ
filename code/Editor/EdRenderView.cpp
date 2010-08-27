@@ -121,13 +121,6 @@ void EdRenderView::OnKeyDown(wxKeyEvent& event)
 		{
 				m_CamCommand.m_right =1.f;
 		}
-
-		if(m_pCamManipulator)
-				m_pCamManipulator->Pan
-				(
-						(m_CamCommand.m_left + m_CamCommand.m_right),
-						(m_CamCommand.m_forward + m_CamCommand.m_backward)
-				);
 }
 
 //-----------------------------------------------------------------------------
@@ -149,4 +142,17 @@ void EdRenderView::OnKeyUp(wxKeyEvent& event)
 		{
 				m_CamCommand.m_right = 0.f;
 		}
+}
+
+//-----------------------------------------------------------------------------
+void EdRenderView::Update(float deltaTime)
+{
+		float speed = 5.f;
+
+		if(m_pCamManipulator)
+				m_pCamManipulator->Pan
+				(
+						deltaTime*speed*(m_CamCommand.m_left + m_CamCommand.m_right),
+						deltaTime*speed*(m_CamCommand.m_forward + m_CamCommand.m_backward)
+				);
 }
